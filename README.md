@@ -20,7 +20,7 @@ python -m pip install --upgrade pip
 pip install pgzero
 
 # Oyunu başlatın
-python oyun.py
+python game.py
 ```
 
 ## Oynanış
