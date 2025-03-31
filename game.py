@@ -100,14 +100,23 @@ def update():
         for enemy in enemies:
             enemy.move()
 
+try:
+    background = Actor("background", (WIDTH // 2, HEIGHT // 2))
+except Exception as e:
+    print(f"Background yüklenirken hata oluştu: {e}")
+
+
 def draw():
+    screen.clear()
     if game_running:
-        screen.clear()
+        background.draw()  # Arka planı çiz
         hero.draw()
         for enemy in enemies:
             enemy.draw()
     else:
         draw_menu()
+
+
 
 # Game Initialization
 hero = Hero()
