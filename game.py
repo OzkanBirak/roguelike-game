@@ -2,11 +2,11 @@ import pgzrun
 import random
 from pygame import Rect
 
-# Ekran boyutu
+# Screen Size
 WIDTH = 800
 HEIGHT = 600
 
-# Kahraman sınıfı
+# Hero Class
 class Hero:
     def __init__(self):
         self.x = WIDTH // 2
@@ -42,12 +42,12 @@ class Hero:
     def draw(self):
         self.sprite.draw()
 
-# Düşman sınıfı
+# Enemy Class
 class Enemy:
     def __init__(self, x, y, area):
         self.x = x
         self.y = y
-        self.area = area  # Hareket edebileceği alan
+        self.area = area
         self.direction = random.choice(["left", "right", "up", "down"])
         self.sprites = ["enemy_idle", "enemy_move1", "enemy_move2"]
         self.sprite = Actor(self.sprites[0], (self.x, self.y))
@@ -73,7 +73,7 @@ class Enemy:
     def draw(self):
         self.sprite.draw()
 
-# Menü seçenekleri
+# Menu
 def draw_menu():
     screen.clear()
     screen.draw.text("MAIN MENU", center=(WIDTH // 2, HEIGHT // 4), fontsize=50, color="white")
@@ -100,16 +100,25 @@ def update():
         for enemy in enemies:
             enemy.move()
 
+try:
+    background = Actor("background", (WIDTH // 2, HEIGHT // 2))
+except Exception as e:
+    print(f"Background yüklenirken hata oluştu: {e}")
+
+
 def draw():
+    screen.clear()
     if game_running:
-        screen.clear()
+        background.draw()  # Arka planı çiz
         hero.draw()
         for enemy in enemies:
             enemy.draw()
     else:
         draw_menu()
 
-# Oyun değişkenleri
+
+
+# Game Initialization
 hero = Hero()
 enemies = [Enemy(random.randint(100, 700), random.randint(100, 500), Rect(100, 100, 600, 400)) for _ in range(2)]
 
